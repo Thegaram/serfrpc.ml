@@ -1,0 +1,6 @@
+(jbuild_version 1)
+
+(executable
+ ((name test)
+  (libraries (unix ppx_protocol_conv.runtime ppx_protocol_conv.msgpack))
+  (preprocess (pps (ppx_protocol_conv ppx_driver.runner)))))

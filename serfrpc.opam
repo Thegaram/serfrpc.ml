@@ -1,0 +1,14 @@
+opam-version: "1.2"
+maintainer: "peter.garamvolgyi@hotmail.com"
+authors: ["Peter Garamvolgyi"]
+homepage: ""
+bug-reports: ""
+dev-repo: ""
+
+build: [
+  ["jbuilder" "build" "-p" name "-j" jobs]
+]
+
+depends: [
+  "jbuilder" {build & >= "1.0+beta14"}
+]
