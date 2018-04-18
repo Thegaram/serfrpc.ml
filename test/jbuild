@@ -2,5 +2,5 @@
 
 (executable
  ((name test)
-  (libraries (unix ppx_protocol_conv.runtime ppx_protocol_conv.msgpack))
-  (preprocess (pps (ppx_protocol_conv ppx_driver.runner)))))
+  (libraries (unix ppx_protocol_conv.runtime ppx_protocol_conv_msgpack lwt.unix))
+  (preprocess (pps (lwt_ppx ppx_protocol_conv ppx_driver.runner)))))
