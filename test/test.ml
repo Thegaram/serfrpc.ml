@@ -4,7 +4,9 @@ let test =
   let address = Unix.ADDR_INET (Unix.inet_addr_of_string ip, port) in
 
   let%lwt (ic, oc) = Lwt_io.open_connection address in
-  ignore (Lwt_preemptive.detach Io.read_loop ic);
+
+  let error_handler seq error = print_endline ("Error: " ^ error ^ " (seq: " ^ (string_of_int seq) ^ ")") in
+  ignore (Lwt_preemptive.detach (Io.read_loop ~error_handler) ic);
 
   let%lwt () = Io.handshake ~seq:1 oc in
   let%lwt () = Io.event ~seq:2 ~name:"my_event" ~payload:"my_payload" oc in

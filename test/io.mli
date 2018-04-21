@@ -1,4 +1,4 @@
-val read_loop : Lwt_io.input_channel -> unit Lwt.t
+val read_loop : ?error_handler:(int -> string -> unit) -> Lwt_io.input_channel -> unit Lwt.t
 
 val handshake : seq:int -> ?version:int -> Lwt_io.output_channel -> unit Lwt.t
 

@@ -20,7 +20,8 @@ let send_request ~seq ~header ?body ?callback oc =
   let%lwt _ = Lwt_io.write_from oc buffer 0 request_length in
   Lwt_io.flush oc
 
-let rec read_loop ic =
+let rec read_loop ?error_handler ic =
+  let error_handler = error_handler |> default (fun (_ : int) (_ : string) -> ()) in
   let read_response ic =
     let buffer = Bytes.create buffer_size in
     let%lwt _ = Lwt_io.read_into ic buffer 0 buffer_size in
@@ -33,9 +34,12 @@ let rec read_loop ic =
   in
   let%lwt (h, b) = read_response ic in
   let header = Response.Header.from_msgpack h in
-  let seq = header.seq in
-  let callback = Hashtbl.find my_hash seq in
-  callback b;
+  (match header.error with
+    | "" ->
+      let callback = Hashtbl.find my_hash header.seq in
+      callback b
+    | error ->
+      error_handler header.seq error);
   read_loop ic
 
 let handshake ~seq ?version oc =
