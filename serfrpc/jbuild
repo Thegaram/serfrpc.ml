@@ -1,0 +1,6 @@
+(jbuild_version 1)
+
+(library
+ ((name        serfrpc)
+  (libraries (ppx_protocol_conv.runtime ppx_protocol_conv_msgpack lwt.unix))
+  (preprocess (pps (lwt_ppx ppx_protocol_conv ppx_driver.runner)))))
