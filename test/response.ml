@@ -177,10 +177,10 @@ end
 module GetCoordinate = struct
 
   type coord = {
-    adjustment : int; [@key "Adjustment"]
+    adjustment : float; [@key "Adjustment"]
     error : float; [@key "Error"]
-    height : int; [@key "Height"]
-    vec : int list; [@key "Vec"]
+    height : float; [@key "Height"]
+    vec : unit; [@key "Vec"] (* TODO *)
   } [@@deriving protocol ~driver:(module Msgpack)]
 
   type t = {

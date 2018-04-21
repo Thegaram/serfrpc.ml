@@ -186,10 +186,10 @@ end
 module GetCoordinate : sig
 
   type coord = {
-    adjustment : int;
+    adjustment : float;
     error : float;
-    height : int;
-    vec : int list;
+    height : float;
+    vec : unit;
   }
 
   type t = {

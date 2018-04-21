@@ -104,6 +104,7 @@ module MembersFiltered = struct
     status : string; [@key "Status"]
     name : string; [@key "Name"]
   } [@@deriving protocol ~driver:(module Msgpack)]
+  (* TODO: optional? *)
 
   let to_msgpack = t_to_msgpack
   let from_msgpack = t_of_msgpack
