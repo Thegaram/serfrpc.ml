@@ -1,5 +1,4 @@
 module Header : sig
-
   type t = {
     seq : int;
     error : string;
@@ -7,22 +6,18 @@ module Header : sig
 
   val to_msgpack : t -> Msgpck.t
   val from_msgpack : Msgpck.t -> t
-
 end
 
 module Join : sig
-
   type t = {
     num : int;
   }
 
   val to_msgpack : t -> Msgpck.t
   val from_msgpack : Msgpck.t -> t
-
 end
 
 module Members : sig
-
   type member = {
     name : string;
     addr : int list;
@@ -43,37 +38,30 @@ module Members : sig
 
   val to_msgpack : t -> Msgpck.t
   val from_msgpack : Msgpck.t -> t
-
 end
 
 module MembersFiltered : sig
-
   type t = {
     members : Members.member list;
   }
 
   val to_msgpack : t -> Msgpck.t
   val from_msgpack : Msgpck.t -> t
-
 end
 
 (* TODO: module Stream *)
 
 module Monitor : sig
-
   type t = {
     log : string;
   }
 
   val to_msgpack : t -> Msgpck.t
   val from_msgpack : Msgpck.t -> t
-
 end
 
 module Query : sig
-
-  module Type : sig
-    type t = Ack | Response | Done
+  module Type : sig    type t = Ack | Response | Done
   end
 
   type t = {
@@ -84,11 +72,9 @@ module Query : sig
 
   val to_msgpack : t -> Msgpck.t
   val from_msgpack : Msgpck.t -> t
-
 end
 
 module InstallKey : sig
-
   type t = {
     messages : (string * string) list;
     num_err : int;
@@ -98,11 +84,9 @@ module InstallKey : sig
 
   val to_msgpack : t -> Msgpck.t
   val from_msgpack : Msgpck.t -> t
-
 end
 
 module UseKey : sig
-
   type t = {
     messages : (string * string) list;
     num_err : int;
@@ -112,11 +96,9 @@ module UseKey : sig
 
   val to_msgpack : t -> Msgpck.t
   val from_msgpack : Msgpck.t -> t
-
 end
 
 module RemoveKey : sig
-
   type t = {
     messages : (string * string) list;
     num_err : int;
@@ -126,11 +108,9 @@ module RemoveKey : sig
 
   val to_msgpack : t -> Msgpck.t
   val from_msgpack : Msgpck.t -> t
-
 end
 
 module ListKeys : sig
-
   type t = {
     messages : (string * string) list;
     keys : (string * int) list;
@@ -141,11 +121,9 @@ module ListKeys : sig
 
   val to_msgpack : t -> Msgpck.t
   val from_msgpack : Msgpck.t -> t
-
 end
 
 module Stats : sig
-
   type agent = {
     name: string;
   }
@@ -180,11 +158,9 @@ module Stats : sig
 
   val to_msgpack : t -> Msgpck.t
   val from_msgpack : Msgpck.t -> t
-
 end
 
 module GetCoordinate : sig
-
   type coord = {
     adjustment : float;
     error : float;
@@ -199,5 +175,4 @@ module GetCoordinate : sig
 
   val to_msgpack : t -> Msgpck.t
   val from_msgpack : Msgpck.t -> t
-
 end

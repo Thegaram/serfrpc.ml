@@ -23,6 +23,8 @@ val tags :
   seq:int -> ?tags:(string * string) list -> ?delete_tags:string list ->
   Lwt_io.output_channel -> unit Lwt.t
 
+val stream : seq:int -> callback:(Msgpck.t -> unit) -> type2:string -> Lwt_io.output_channel -> unit Lwt.t
+
 val monitor : seq:int -> callback:(Msgpck.t -> unit) -> log_level:string -> Lwt_io.output_channel -> unit Lwt.t
 
 val stop : seq:int -> stop:int -> Lwt_io.output_channel -> unit Lwt.t

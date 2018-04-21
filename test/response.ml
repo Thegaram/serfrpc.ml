@@ -1,7 +1,6 @@
 open Protocol_conv_msgpack
 
 module Header = struct
-
   type t = {
     seq : int; [@key "Seq"]
     error : string; [@key "Error"]
@@ -9,30 +8,18 @@ module Header = struct
 
   let to_msgpack = t_to_msgpack
   let from_msgpack = t_of_msgpack
-
 end
 
-(* module Handshake *)
-
-(* module Auth *)
-
-(* module Event *)
-
-(* module ForceLeave *)
-
 module Join = struct
-
   type t = {
     num : int; [@key "Num"]
   } [@@deriving protocol ~driver:(module Msgpack)]
 
   let to_msgpack = t_to_msgpack
   let from_msgpack = t_of_msgpack
-
 end
 
 module Members = struct
-
   type member = {
     name : string; [@key "Name"]
     addr : int list; [@key "Addr"]
@@ -53,34 +40,23 @@ module Members = struct
 
   let to_msgpack = t_to_msgpack
   let from_msgpack = t_of_msgpack
-
 end
 
 module MembersFiltered = Members
 
-(* module Tags *)
-
 (* TODO: module Stream *)
 
 module Monitor = struct
-
   type t = {
     log : string; [@key "Log"]
   } [@@deriving protocol ~driver:(module Msgpack)]
 
   let to_msgpack = t_to_msgpack
   let from_msgpack = t_of_msgpack
-
 end
 
-(* module Stop *)
-
-(* module Leave *)
-
 module Query = struct
-
-  module Type = struct
-    type t =
+  module Type = struct    type t =
       | Ack      [@key "ack"]
       | Response [@key "response"]
       | Done     [@key "done"]
@@ -95,13 +71,9 @@ module Query = struct
 
   let to_msgpack = t_to_msgpack
   let from_msgpack = t_of_msgpack
-
 end
 
-(* module Respond *)
-
 module InstallKey = struct
-
   type t = {
     messages : (string * string) list; [@key "Messages"]
     num_err : int; [@key "NumErr"]
@@ -111,7 +83,6 @@ module InstallKey = struct
 
   let to_msgpack = t_to_msgpack
   let from_msgpack = t_of_msgpack
-
 end
 
 module UseKey = InstallKey
@@ -119,7 +90,6 @@ module UseKey = InstallKey
 module RemoveKey = InstallKey
 
 module ListKeys = struct
-
   type t = {
     messages : (string * string) list; [@key "Messages"]
     keys : (string * int) list; [@key "Keys"]
@@ -130,11 +100,9 @@ module ListKeys = struct
 
   let to_msgpack = t_to_msgpack
   let from_msgpack = t_of_msgpack
-
 end
 
 module Stats = struct
-
   (* TODO: review fields *)
 
   type agent = {
@@ -171,11 +139,9 @@ module Stats = struct
 
   let to_msgpack = t_to_msgpack
   let from_msgpack = t_of_msgpack
-
 end
 
 module GetCoordinate = struct
-
   type coord = {
     adjustment : float; [@key "Adjustment"]
     error : float; [@key "Error"]
@@ -190,5 +156,4 @@ module GetCoordinate = struct
 
   let to_msgpack = t_to_msgpack
   let from_msgpack = t_of_msgpack
-
 end

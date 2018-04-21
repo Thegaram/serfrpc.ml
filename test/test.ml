@@ -11,6 +11,9 @@ let test =
   let%lwt () = Io.handshake ~seq:1 oc in
   let%lwt () = Io.event ~seq:2 ~name:"my_event" ~payload:"my_payload" oc in
 
+  let callback stats = print_endline (Msgpck.show stats) in
+  let%lwt () = Io.stats ~seq:3 ~callback oc in
+
   let%lwt () = Lwt_unix.sleep 5.0 in
 
   Lwt_io.close ic

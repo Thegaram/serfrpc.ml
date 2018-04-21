@@ -107,7 +107,12 @@ let tags ~seq ?tags ?delete_tags oc =
   let body = Request.Tags.to_msgpack { tags; delete_tags } in
   send_request ~seq ~header ~body oc
 
-(* TODO: stream *)
+let stream ~seq ~callback ~type2 oc =
+  let command = Request.Command.Stream in
+  let header = Request.Header.to_msgpack { command; seq } in
+  let body = Request.Stream.to_msgpack { type2 } in
+  (* let callback = fun b -> b |> Response.Stream.from_msgpack |> callback in *)
+  send_request ~seq ~header ~body ~callback oc
 
 let monitor ~seq ~callback ~log_level oc =
   let command = Request.Command.Monitor in
