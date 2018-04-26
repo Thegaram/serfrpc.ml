@@ -9,7 +9,15 @@ let send_request ~seq ~header ?body ?callback oc =
   let callback = match callback with | Some c -> c | None -> (fun _ -> ()) in
   Hashtbl.add my_hash seq callback;
 
-  let buffer = Bytes.create buffer_size in
+  let header_size = Msgpck.Bytes.size header in
+  let body_size = match body with
+    | None -> 0
+    | Some b -> Msgpck.Bytes.size b
+  in
+
+  let required_buffer_size = header_size + body_size in
+
+  let buffer = Bytes.create required_buffer_size in
   let header_length = Msgpck.Bytes.write buffer header in
   let body_length = match body with
     | None -> 0
