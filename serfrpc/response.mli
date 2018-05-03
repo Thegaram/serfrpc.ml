@@ -49,7 +49,27 @@ module MembersFiltered : sig
   val from_msgpack : Msgpck.t -> t
 end
 
-(* TODO: module Stream *)
+module Stream : sig
+  type t = {
+    event : string;
+  }
+
+  val to_msgpack : t -> Msgpck.t
+  val from_msgpack : Msgpck.t -> t
+end
+
+module UserEventStream : sig
+  type t = {
+    coalesce: bool;
+    event: string;
+    ltime: int;
+    name: string;
+    payload: string;
+  }
+
+  val to_msgpack : t -> Msgpck.t
+  val from_msgpack : Msgpck.t -> t
+end
 
 module Monitor : sig
   type t = {

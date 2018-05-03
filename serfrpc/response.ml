@@ -1,3 +1,4 @@
+open Protocol_conv
 open Protocol_conv_msgpack
 
 module Header = struct
@@ -44,7 +45,28 @@ end
 
 module MembersFiltered = Members
 
-(* TODO: module Stream *)
+module Stream = struct
+  type t = {
+    event: string; [@key "Event"]
+    (* TODO extend *)
+  } [@@deriving protocol ~driver:(module Msgpack)]
+
+  let to_msgpack = t_to_msgpack
+  let from_msgpack = t_of_msgpack
+end
+
+module UserEventStream = struct
+  type t = {
+    coalesce: bool; [@key "Coalesce"]
+    event: string; [@key "Event"]
+    ltime: int; [@key "LTime"]
+    name: string; [@key "Name"]
+    payload: string; [@key "Payload"]
+  } [@@deriving protocol ~driver:(module Msgpack)]
+
+  let to_msgpack = t_to_msgpack
+  let from_msgpack = t_of_msgpack
+end
 
 module Monitor = struct
   type t = {
