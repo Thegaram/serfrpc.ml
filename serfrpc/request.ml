@@ -29,27 +29,18 @@ module Header = struct
     command : Command.t; [@key "Command"]
     seq : int; [@key "Seq"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Handshake = struct
   type t = {
     version : int; [@key "Version"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Auth = struct
   type t = {
     auth_key : string; [@key "AuthKey"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Event = struct
@@ -58,18 +49,12 @@ module Event = struct
     payload : string; [@key "Payload"] (* TODO: bytes? *)
     coalesce : bool; [@key "Coalesce"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module ForceLeave = struct
   type t = {
     node : string; [@key "Node"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Join = struct
@@ -77,9 +62,6 @@ module Join = struct
     existing : string list; [@key "Existing"]
     replay : bool; [@key "Replay"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module MembersFiltered = struct
@@ -89,9 +71,6 @@ module MembersFiltered = struct
     name : string; [@key "Name"]
   } [@@deriving protocol ~driver:(module Msgpack)]
   (* TODO: optional? *)
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Tags = struct
@@ -99,36 +78,24 @@ module Tags = struct
     tags : (string * string) list; [@key "Tags"]
     delete_tags : string list; [@key "DeleteTags"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Stream = struct
   type t = {
     type2 : string; [@key "Type"] (* TODO: rename *)
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Monitor = struct
   type t = {
     log_level : string; [@key "LogLevel"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Stop = struct
   type t = {
     stop : int; [@key "Stop"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Query = struct
@@ -140,9 +107,6 @@ module Query = struct
     name : string; [@key "Name"]
     payload : string; [@key "Payload"] (* TODO: bytes? *)
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Respond = struct
@@ -150,43 +114,28 @@ module Respond = struct
     id : int; [@key "ID"]
     payload : string; [@key "Payload"] (* TODO: bytes? *)
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module InstallKey = struct
   type t = {
     key : string; [@key "Key"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module UseKey = struct
   type t = {
     key : string; [@key "Key"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module RemoveKey = struct
   type t = {
     key : string; [@key "Key"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module GetCoordinate = struct
   type t = {
     node : string; [@key "Node"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end

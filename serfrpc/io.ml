@@ -41,7 +41,7 @@ let rec read_loop ?error_handler ic =
     Lwt.return (header, body)
   in
   let%lwt (h, b) = read_response ic in
-  let header = Response.Header.from_msgpack h in
+  let header = Response.Header.of_msgpack h in
   (match header.error with
     | "" ->
       let callback = Hashtbl.find my_hash header.seq in
@@ -81,7 +81,7 @@ let join ~seq ~callback ~existing ?replay oc =
   let header = Request.Header.to_msgpack { command; seq } in
   let replay = replay |> default false in
   let body = Request.Join.to_msgpack { existing; replay } in
-  (* let callback = fun b -> b |> Response.Join.from_msgpack |> callback in *)
+  (* let callback = fun b -> b |> Response.Join.of_msgpack |> callback in *)
   send_request ~seq ~header ~body ~callback oc
 
 (* {Members:
@@ -94,7 +94,7 @@ string expected, "\000\000\000\000\000\000\000\000\000\000\255\255\127\000\000\0
 let members ~seq ~callback oc =
   let command = Request.Command.Members in
   let header = Request.Header.to_msgpack { command; seq } in
-  (* let callback = fun b -> b |> Response.Members.from_msgpack |> callback in *)
+  (* let callback = fun b -> b |> Response.Members.of_msgpack |> callback in *)
   send_request ~seq ~header ~callback oc
 
 let members_filtered ~seq ~callback ?tags ?status ?name oc =
@@ -104,7 +104,7 @@ let members_filtered ~seq ~callback ?tags ?status ?name oc =
   let status = status |> default "" in
   let name = name |> default "" in
   let body = Request.MembersFiltered.to_msgpack { tags; status; name } in
-  (* let callback = fun b -> b |> Response.MembersFiltered.from_msgpack |> callback in *)
+  (* let callback = fun b -> b |> Response.MembersFiltered.of_msgpack |> callback in *)
   send_request ~seq ~header ~body ~callback oc
 
 let tags ~seq ?tags ?delete_tags oc =
@@ -119,14 +119,14 @@ let stream ~seq ~callback ~type2 oc =
   let command = Request.Command.Stream in
   let header = Request.Header.to_msgpack { command; seq } in
   let body = Request.Stream.to_msgpack { type2 } in
-  (* let callback = fun b -> b |> Response.Stream.from_msgpack |> callback in *)
+  (* let callback = fun b -> b |> Response.Stream.of_msgpack |> callback in *)
   send_request ~seq ~header ~body ~callback oc
 
 let monitor ~seq ~callback ~log_level oc =
   let command = Request.Command.Monitor in
   let header = Request.Header.to_msgpack { command; seq } in
   let body = Request.Monitor.to_msgpack { log_level } in
-  (* let callback = fun b -> b |> Response.Monitor.from_msgpack |> callback in *)
+  (* let callback = fun b -> b |> Response.Monitor.of_msgpack |> callback in *)
   send_request ~seq ~header ~body ~callback oc
 
 let stop ~seq ~stop oc =
@@ -144,7 +144,7 @@ let query ~seq ~callback ~name ~payload ?filter_nodes ?filter_tags ?request_ack 
   let command = Request.Command.Query in
   let header = Request.Header.to_msgpack { command; seq } in
   let body = Request.Query.to_msgpack { name; payload; filter_nodes; filter_tags; request_ack; timeout } in
-  (* let callback = fun b -> b |> Response.Query.from_msgpack |> callback in *)
+  (* let callback = fun b -> b |> Response.Query.of_msgpack |> callback in *)
   send_request ~seq ~header ~body ~callback oc
 
 let respond ~seq ~id ~payload oc =
@@ -157,44 +157,44 @@ let install_key ~seq ~callback ~key oc =
   let command = Request.Command.InstallKey in
   let header = Request.Header.to_msgpack { command; seq } in
   let body = Request.InstallKey.to_msgpack { key } in
-  (* let callback = fun b -> b |> Response.InstallKey.from_msgpack |> callback in *)
+  (* let callback = fun b -> b |> Response.InstallKey.of_msgpack |> callback in *)
   send_request ~seq ~header ~body ~callback oc
 
 let use_key ~seq ~callback ~key oc =
   let command = Request.Command.UseKey in
   let header = Request.Header.to_msgpack { command; seq } in
   let body = Request.UseKey.to_msgpack { key } in
-  (* let callback = fun b -> b |> Response.UseKey.from_msgpack |> callback in *)
+  (* let callback = fun b -> b |> Response.UseKey.of_msgpack |> callback in *)
   send_request ~seq ~header ~body ~callback oc
 
 let remove_key ~seq ~callback ~key oc =
   let command = Request.Command.RemoveKey in
   let header = Request.Header.to_msgpack { command; seq } in
   let body = Request.RemoveKey.to_msgpack { key } in
-  (* let callback = fun b -> b |> Response.RemoveKey.from_msgpack |> callback in *)
+  (* let callback = fun b -> b |> Response.RemoveKey.of_msgpack |> callback in *)
   send_request ~seq ~header ~body ~callback oc
 
 (* let callback = fun b ->
     print_endline (Msgpck.show b);
-    try b |> Response.ListKeys.from_msgpack; ()
+    try b |> Response.ListKeys.of_msgpack; ()
     with e -> print_endline (Printexc.to_string e);
-    (* b |> Response.ListKeys.from_msgpack |> callback *)
+    (* b |> Response.ListKeys.of_msgpack |> callback *)
   in *)
 let list_keys ~seq ~callback oc =
   let command = Request.Command.ListKeys in
   let header = Request.Header.to_msgpack { command; seq } in
-  (* let callback = fun b -> b |> Response.ListKeys.from_msgpack |> callback in *)
+  (* let callback = fun b -> b |> Response.ListKeys.of_msgpack |> callback in *)
   send_request ~seq ~header ~callback oc
 
 let stats ~seq ~callback oc =
   let command = Request.Command.Stats in
   let header = Request.Header.to_msgpack { command; seq } in
-  (* let callback = fun b -> b |> Response.Stats.from_msgpack |> callback in *)
+  (* let callback = fun b -> b |> Response.Stats.of_msgpack |> callback in *)
   send_request ~seq ~header ~callback oc
 
 let get_coordinate ~seq ~callback ~node oc =
   let command = Request.Command.GetCoordinate in
   let header = Request.Header.to_msgpack { command; seq } in
   let body = Request.GetCoordinate.to_msgpack { node } in
-  (* let callback = fun b -> b |> Response.GetCoordinate.from_msgpack |> callback in *)
+  (* let callback = fun b -> b |> Response.GetCoordinate.of_msgpack |> callback in *)
   send_request ~seq ~header ~body ~callback oc

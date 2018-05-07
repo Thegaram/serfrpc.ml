@@ -5,7 +5,7 @@ module Header : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Join : sig
@@ -14,7 +14,7 @@ module Join : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Members : sig
@@ -37,7 +37,7 @@ module Members : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module MembersFiltered : sig
@@ -46,10 +46,27 @@ module MembersFiltered : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
-(* TODO: module Stream *)
+module Bytes : sig
+  type t = string
+  val t_of_msgpack : Msgpck.t -> string
+  val t_to_msgpack : string -> Msgpck.t
+end
+
+module UserEventStream : sig
+  type t = {
+    coalesce: bool;
+    event: string;
+    ltime: int;
+    name: string;
+    payload: Bytes.t;
+  }
+
+  val to_msgpack : t -> Msgpck.t
+  val of_msgpack : Msgpck.t -> t
+end
 
 module Monitor : sig
   type t = {
@@ -57,7 +74,7 @@ module Monitor : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Query : sig
@@ -71,7 +88,7 @@ module Query : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module InstallKey : sig
@@ -83,7 +100,7 @@ module InstallKey : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module UseKey : sig
@@ -95,7 +112,7 @@ module UseKey : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module RemoveKey : sig
@@ -107,7 +124,7 @@ module RemoveKey : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module ListKeys : sig
@@ -120,7 +137,7 @@ module ListKeys : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Stats : sig
@@ -157,7 +174,7 @@ module Stats : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module GetCoordinate : sig
@@ -174,5 +191,5 @@ module GetCoordinate : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
