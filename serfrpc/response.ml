@@ -5,18 +5,12 @@ module Header = struct
     seq : int; [@key "Seq"]
     error : string; [@key "Error"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Join = struct
   type t = {
     num : int; [@key "Num"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Members = struct
@@ -37,9 +31,6 @@ module Members = struct
   type t = {
     members : member list; [@key "Members"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module MembersFiltered = Members
@@ -49,9 +40,6 @@ module Stream = struct
     event: string; [@key "Event"]
     (* TODO extend *)
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Bytes = struct
@@ -74,9 +62,6 @@ module Monitor = struct
   type t = {
     log : string; [@key "Log"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Query = struct
@@ -92,9 +77,6 @@ module Query = struct
     from : string option; [@key "From"]
     payload : string option; [@key "Payload"] (* TODO: bytes? *)
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module InstallKey = struct
@@ -104,9 +86,6 @@ module InstallKey = struct
     num_nodes : int; [@key "NumNodes"]
     num_resp : int; [@key "NumResp"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module UseKey = InstallKey
@@ -121,9 +100,6 @@ module ListKeys = struct
     num_nodes : int; [@key "NumNodes"]
     num_resp : int; [@key "NumResp"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Stats = struct
@@ -160,9 +136,6 @@ module Stats = struct
     serf : serf; [@key "serf"]
     tags : (string * string) list; [@key "tags"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module GetCoordinate = struct
@@ -177,7 +150,4 @@ module GetCoordinate = struct
     coord : coord; [@key "Coord"]
     ok : bool; [@key "Ok"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end

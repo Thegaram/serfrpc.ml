@@ -29,7 +29,7 @@ module Header : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Handshake : sig
@@ -38,7 +38,7 @@ module Handshake : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Auth : sig
@@ -47,7 +47,7 @@ module Auth : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Event : sig
@@ -58,7 +58,7 @@ module Event : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module ForceLeave : sig
@@ -67,7 +67,7 @@ module ForceLeave : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Join : sig
@@ -77,7 +77,7 @@ module Join : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module MembersFiltered : sig
@@ -88,7 +88,7 @@ module MembersFiltered : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Tags : sig
@@ -98,7 +98,7 @@ module Tags : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Stream : sig
@@ -107,7 +107,7 @@ module Stream : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Monitor : sig
@@ -116,7 +116,7 @@ module Monitor : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Stop : sig
@@ -125,7 +125,7 @@ module Stop : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Query : sig
@@ -139,7 +139,7 @@ module Query : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Respond : sig
@@ -149,7 +149,7 @@ module Respond : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module InstallKey : sig
@@ -158,7 +158,7 @@ module InstallKey : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module UseKey : sig
@@ -167,7 +167,7 @@ module UseKey : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module RemoveKey : sig
@@ -176,7 +176,7 @@ module RemoveKey : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module GetCoordinate : sig
@@ -185,5 +185,5 @@ module GetCoordinate : sig
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
