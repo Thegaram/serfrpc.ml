@@ -1,4 +1,3 @@
-open Protocol_conv
 open Protocol_conv_msgpack
 
 module Header = struct
