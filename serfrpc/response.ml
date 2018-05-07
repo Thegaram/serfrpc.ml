@@ -35,13 +35,6 @@ end
 
 module MembersFiltered = Members
 
-module Stream = struct
-  type t = {
-    event: string; [@key "Event"]
-    (* TODO extend *)
-  } [@@deriving protocol ~driver:(module Msgpack)]
-end
-
 module Bytes = struct
   type t = string
   let t_of_msgpack = Msgpck.to_bytes

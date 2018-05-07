@@ -49,16 +49,6 @@ module MembersFiltered : sig
   val of_msgpack : Msgpck.t -> t
 end
 
-module Stream : sig
-  type t = {
-    event : string;
-  }
-
-  val to_msgpack : t -> Msgpck.t
-  val of_msgpack : Msgpck.t -> t
-end
-
-
 module Bytes : sig
   type t = string
   val t_of_msgpack : Msgpck.t -> string
