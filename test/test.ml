@@ -1,18 +1,3 @@
-let print character =
-  let code = Char.code character in
-  Printf.printf "%2.2X " code
-
-let print_msgpck data =
-  let size = Msgpck.Bytes.size data in
-  print_int size;
-  print_endline " <- size";
-  let buf = Bytes.create size in
-  print_endline "buf created";
-  Msgpck.Bytes.write buf data;
-  print_endline "buf written";
-  Bytes.iter print buf;
-  print_endline ""
-
 let test =
   let ip = "127.0.0.1" in
   let port = 7373 in
@@ -26,11 +11,8 @@ let test =
   let%lwt () = Serfrpc.Io.handshake ~seq:1 oc in
 
   let digestValidData data =
-    print_endline "arrived";
     try
-      print_endline (Msgpck.show data);
-      print_msgpck data;
-      let test = data |> Serfrpc.Response.UserEventStream.from_msgpack in
+      let test = data |> Serfrpc.Response.UserEventStream.of_msgpack in
       print_endline (test.payload);
       ()
     with e -> print_endline (Printexc.to_string e);

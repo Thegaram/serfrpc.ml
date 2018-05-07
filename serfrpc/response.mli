@@ -58,17 +58,24 @@ module Stream : sig
   val from_msgpack : Msgpck.t -> t
 end
 
+
+module Bytes : sig
+  type t = string
+  val t_of_msgpack : Msgpck.t -> string
+  val t_to_msgpack : string -> Msgpck.t
+end
+
 module UserEventStream : sig
   type t = {
     coalesce: bool;
     event: string;
     ltime: int;
     name: string;
-    payload: string;
+    payload: Bytes.t;
   }
 
   val to_msgpack : t -> Msgpck.t
-  val from_msgpack : Msgpck.t -> t
+  val of_msgpack : Msgpck.t -> t
 end
 
 module Monitor : sig

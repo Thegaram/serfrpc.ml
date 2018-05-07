@@ -55,17 +55,20 @@ module Stream = struct
   let from_msgpack = t_of_msgpack
 end
 
+module Bytes = struct
+  type t = string
+  let t_of_msgpack = Msgpck.to_bytes
+  let t_to_msgpack = Msgpck.of_bytes
+end
+
 module UserEventStream = struct
   type t = {
     coalesce: bool; [@key "Coalesce"]
     event: string; [@key "Event"]
     ltime: int; [@key "LTime"]
     name: string; [@key "Name"]
-    payload: string; [@key "Payload"]
+    payload: Bytes.t; [@key "Payload"]
   } [@@deriving protocol ~driver:(module Msgpack)]
-
-  let to_msgpack = t_to_msgpack
-  let from_msgpack = t_of_msgpack
 end
 
 module Monitor = struct
