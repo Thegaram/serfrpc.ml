@@ -12,7 +12,7 @@ val join :
   seq:int -> callback:(Msgpck.t -> unit) -> existing:string list -> ?replay:bool ->
   Lwt_io.output_channel -> unit Lwt.t
 
-val members : seq:int -> callback:(Msgpck.t -> unit) -> Lwt_io.output_channel -> unit Lwt.t
+val members : seq:int -> callback:(Response.Members.t -> unit) -> Lwt_io.output_channel -> unit Lwt.t
 
 val members_filtered :
   seq:int -> callback:(Msgpck.t -> unit) ->

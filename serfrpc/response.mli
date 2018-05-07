@@ -20,9 +20,9 @@ end
 module Members : sig
   type member = {
     name : string;
-    addr : int list;
+    addr : Common.Bytes.t;
     port : int;
-    tags : (string * string) list;
+    tags : Common.SerializableMap.t;
     status : string;
     protocolMin : int;
     protocolMax : int;
@@ -49,19 +49,13 @@ module MembersFiltered : sig
   val of_msgpack : Msgpck.t -> t
 end
 
-module Bytes : sig
-  type t = string
-  val t_of_msgpack : Msgpck.t -> string
-  val t_to_msgpack : string -> Msgpck.t
-end
-
 module UserEventStream : sig
   type t = {
     coalesce: bool;
     event: string;
     ltime: int;
     name: string;
-    payload: Bytes.t;
+    payload: Common.Bytes.t;
   }
 
   val to_msgpack : t -> Msgpck.t
@@ -93,7 +87,7 @@ end
 
 module InstallKey : sig
   type t = {
-    messages : (string * string) list;
+    messages : Common.SerializableMap.t;
     num_err : int;
     num_nodes : int;
     num_resp : int;
@@ -105,7 +99,7 @@ end
 
 module UseKey : sig
   type t = {
-    messages : (string * string) list;
+    messages : Common.SerializableMap.t;
     num_err : int;
     num_nodes : int;
     num_resp : int;
@@ -117,7 +111,7 @@ end
 
 module RemoveKey : sig
   type t = {
-    messages : (string * string) list;
+    messages : Common.SerializableMap.t;
     num_err : int;
     num_nodes : int;
     num_resp : int;
@@ -129,7 +123,7 @@ end
 
 module ListKeys : sig
   type t = {
-    messages : (string * string) list;
+    messages : Common.SerializableMap.t;
     keys : (string * int) list;
     num_err : int;
     num_nodes : int;
@@ -170,7 +164,7 @@ module Stats : sig
     agent : agent;
     runtime : runtime;
     serf : serf;
-    tags : (string * string) list;
+    tags : Common.SerializableMap.t;
   }
 
   val to_msgpack : t -> Msgpck.t

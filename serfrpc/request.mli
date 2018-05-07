@@ -53,7 +53,7 @@ end
 module Event : sig
   type t = {
     name : string;
-    payload : string;
+    payload : Common.Bytes.t;
     coalesce : bool;
   }
 
@@ -82,7 +82,7 @@ end
 
 module MembersFiltered : sig
   type t = {
-    tags : (string * string) list;
+    tags : Common.SerializableMap.t;
     status : string;
     name : string;
   }
@@ -93,7 +93,7 @@ end
 
 module Tags : sig
   type t = {
-    tags : (string * string) list;
+    tags : Common.SerializableMap.t;
     delete_tags : string list;
   }
 
@@ -131,11 +131,11 @@ end
 module Query : sig
   type t = {
     filter_nodes : string list option;
-    filter_tags : (string * string) list option;
+    filter_tags : Common.SerializableMap.t option;
     request_ack : bool option;
     timeout : int option;
     name : string;
-    payload : string;
+    payload : Common.Bytes.t;
   }
 
   val to_msgpack : t -> Msgpck.t

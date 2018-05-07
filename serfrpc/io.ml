@@ -94,7 +94,11 @@ string expected, "\000\000\000\000\000\000\000\000\000\000\255\255\127\000\000\0
 let members ~seq ~callback oc =
   let command = Request.Command.Members in
   let header = Request.Header.to_msgpack { command; seq } in
-  (* let callback = fun b -> b |> Response.Members.of_msgpack |> callback in *)
+  let callback body =
+    try
+      body |> Response.Members.of_msgpack |> callback
+    with e -> print_endline (Printexc.to_string e);
+  in
   send_request ~seq ~header ~callback oc
 
 let members_filtered ~seq ~callback ?tags ?status ?name oc =

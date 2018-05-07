@@ -46,7 +46,7 @@ end
 module Event = struct
   type t = {
     name : string; [@key "Name"]
-    payload : string; [@key "Payload"] (* TODO: bytes? *)
+    payload : Common.Bytes.t; [@key "Payload"]
     coalesce : bool; [@key "Coalesce"]
   } [@@deriving protocol ~driver:(module Msgpack)]
 end
@@ -66,7 +66,7 @@ end
 
 module MembersFiltered = struct
   type t = {
-    tags : (string * string) list; [@key "Tags"]
+    tags : Common.SerializableMap.t; [@key "Tags"]
     status : string; [@key "Status"]
     name : string; [@key "Name"]
   } [@@deriving protocol ~driver:(module Msgpack)]
@@ -75,7 +75,7 @@ end
 
 module Tags = struct
   type t = {
-    tags : (string * string) list; [@key "Tags"]
+    tags : Common.SerializableMap.t; [@key "Tags"]
     delete_tags : string list; [@key "DeleteTags"]
   } [@@deriving protocol ~driver:(module Msgpack)]
 end
@@ -101,18 +101,18 @@ end
 module Query = struct
   type t = {
     filter_nodes : string list option; [@key "FilterNodes"]
-    filter_tags : (string * string) list option; [@key "FilterTags"]
+    filter_tags : Common.SerializableMap.t option; [@key "FilterTags"]
     request_ack : bool option; [@key "RequestAck"]
     timeout : int option; [@key "Timeout"]
     name : string; [@key "Name"]
-    payload : string; [@key "Payload"] (* TODO: bytes? *)
+    payload : Common.Bytes.t; [@key "Payload"]
   } [@@deriving protocol ~driver:(module Msgpack)]
 end
 
 module Respond = struct
   type t = {
     id : int; [@key "ID"]
-    payload : string; [@key "Payload"] (* TODO: bytes? *)
+    payload : Common.Bytes.t; [@key "Payload"]
   } [@@deriving protocol ~driver:(module Msgpack)]
 end
 
