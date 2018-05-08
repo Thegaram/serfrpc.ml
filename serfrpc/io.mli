@@ -15,7 +15,7 @@ val join :
 val members : seq:int -> callback:(Response.Members.t -> unit) -> Lwt_io.output_channel -> unit Lwt.t
 
 val members_filtered :
-  seq:int -> callback:(Msgpck.t -> unit) ->
+  seq:int -> callback:(Response.MembersFiltered.t -> unit) ->
   ?tags:(string * string) list -> ?status:string -> ?name:string ->
   Lwt_io.output_channel -> unit Lwt.t
 
@@ -25,7 +25,7 @@ val tags :
 
 val stream : seq:int -> callback:(Msgpck.t -> unit) -> type2:string -> Lwt_io.output_channel -> unit Lwt.t
 
-val monitor : seq:int -> callback:(Msgpck.t -> unit) -> log_level:string -> Lwt_io.output_channel -> unit Lwt.t
+val monitor : seq:int -> callback:(Response.Monitor.t -> unit) -> log_level:string -> Lwt_io.output_channel -> unit Lwt.t
 
 val stop : seq:int -> stop:int -> Lwt_io.output_channel -> unit Lwt.t
 

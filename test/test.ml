@@ -10,7 +10,7 @@ let test =
 
   let%lwt () = Serfrpc.Io.handshake ~seq:1 oc in
 
-  (* let digestValidData data =
+  let digestValidData data =
     try
       let test = data |> Serfrpc.Response.UserEventStream.of_msgpack in
       print_endline (test.payload);
@@ -24,11 +24,13 @@ let test =
       | _ -> digestValidData data
   in
 
-  let%lwt () = Serfrpc.Io.stream ~seq:50 ~callback:cb ~type2:"user:deploy" oc in *)
+  let%lwt () = Serfrpc.Io.stream ~seq:50 ~callback:cb ~type2:"user:deploy" oc in
 
   let members_cb (members_obj: Serfrpc.Response.Members.t) =
-    let print_name (member: Serfrpc.Response.Members.member) = print_endline member.name in 
-    List.iter print_name members_obj.members
+    let print_addr (member: Serfrpc.Response.Members.member) =
+      print_endline (Serfrpc.Common.Address.to_string member.addr)  
+    in
+    List.iter print_addr members_obj.members
   in
 
   let%lwt () = Serfrpc.Io.members ~seq:51 ~callback:members_cb oc in

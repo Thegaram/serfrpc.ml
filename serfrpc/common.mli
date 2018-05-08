@@ -9,3 +9,10 @@ module SerializableMap : sig
   val t_of_msgpack : Msgpck.t -> t
   val t_to_msgpack : t -> Msgpck.t
 end
+
+module Address : sig
+  type t = int list
+  val to_string : t -> string
+  val t_of_msgpack : Msgpck.t -> t
+  val t_to_msgpack : t -> Msgpck.t
+end

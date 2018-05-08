@@ -84,13 +84,6 @@ let join ~seq ~callback ~existing ?replay oc =
   (* let callback = fun b -> b |> Response.Join.of_msgpack |> callback in *)
   send_request ~seq ~header ~body ~callback oc
 
-(* {Members:
- [{Addr: "\000\000\000\000\000\000\000\000\000\000\255\255\127\000\000\001",
-   DelegateCur: 5, DelegateMax: 5, DelegateMin: 2, Name:
-   dhcp-971.i.wlan.net.bme.hu, Port: 7946, ProtocolCur: 2, ProtocolMax: 5,
-   ProtocolMin: 1, Status: alive, Tags: {}}]}
-OOOOO0
-string expected, "\000\000\000\000\000\000\000\000\000\000\255\255\127\000\000\001" *)
 let members ~seq ~callback oc =
   let command = Request.Command.Members in
   let header = Request.Header.to_msgpack { command; seq } in
@@ -108,7 +101,11 @@ let members_filtered ~seq ~callback ?tags ?status ?name oc =
   let status = status |> default "" in
   let name = name |> default "" in
   let body = Request.MembersFiltered.to_msgpack { tags; status; name } in
-  (* let callback = fun b -> b |> Response.MembersFiltered.of_msgpack |> callback in *)
+  let callback body =
+    try
+      body |> Response.MembersFiltered.of_msgpack |> callback
+    with e -> print_endline (Printexc.to_string e);
+  in
   send_request ~seq ~header ~body ~callback oc
 
 let tags ~seq ?tags ?delete_tags oc =
@@ -130,7 +127,11 @@ let monitor ~seq ~callback ~log_level oc =
   let command = Request.Command.Monitor in
   let header = Request.Header.to_msgpack { command; seq } in
   let body = Request.Monitor.to_msgpack { log_level } in
-  (* let callback = fun b -> b |> Response.Monitor.of_msgpack |> callback in *)
+  let callback body =
+    try
+      body |> Response.Monitor.of_msgpack |> callback
+    with e -> print_endline (Printexc.to_string e);
+  in
   send_request ~seq ~header ~body ~callback oc
 
 let stop ~seq ~stop oc =

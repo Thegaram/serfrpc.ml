@@ -16,7 +16,7 @@ end
 module Members = struct
   type member = {
     name : string; [@key "Name"]
-    addr : Common.Bytes.t; [@key "Addr"]
+    addr : Common.Address.t; [@key "Addr"]
     port : int; [@key "Port"]
     tags : Common.SerializableMap.t; [@key "Tags"]
     status : string; [@key "Status"]

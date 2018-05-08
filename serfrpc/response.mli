@@ -20,7 +20,7 @@ end
 module Members : sig
   type member = {
     name : string;
-    addr : Common.Bytes.t;
+    addr : Common.Address.t;
     port : int;
     tags : Common.SerializableMap.t;
     status : string;
