@@ -5,7 +5,9 @@ let test =
 
   let%lwt (ic, oc) = Lwt_io.open_connection address in
 
-  let error_handler seq error = print_endline ("Error: " ^ error ^ " (seq: " ^ (string_of_int seq) ^ ")") in
+  let error_handler seq error =
+    print_endline ("Error: " ^ (Printexc.to_string error) ^ " (seq: " ^ (string_of_int seq) ^ ")")
+  in
   ignore (Lwt_preemptive.detach (Serfrpc.Io.read_loop ~error_handler) ic);
 
   let%lwt () = Serfrpc.Io.handshake ~seq:1 oc in

@@ -1,3 +1,5 @@
+exception Unimplemented of string
+
 module Bytes : sig
   type t = string
   val t_of_msgpack : Msgpck.t -> t

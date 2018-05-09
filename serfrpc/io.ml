@@ -29,7 +29,7 @@ let send_request ~seq ~header ?body ?callback oc =
   Lwt_io.flush oc
 
 let rec read_loop ?error_handler ic =
-  let error_handler = error_handler |> default (fun (_ : int) (_ : string) -> ()) in
+  let error_handler = error_handler |> default (fun (_ : int) (_ : exn) -> ()) in
   let read_response ic =
     let buffer = Bytes.create buffer_size in
     let%lwt _ = Lwt_io.read_into ic buffer 0 buffer_size in
@@ -45,7 +45,10 @@ let rec read_loop ?error_handler ic =
   (match header.error with
     | "" ->
       let callback = Hashtbl.find my_hash header.seq in
-      callback b
+      try
+        callback b
+      with e ->
+        error_handler header.seq e
     | error ->
       error_handler header.seq error);
   read_loop ic
