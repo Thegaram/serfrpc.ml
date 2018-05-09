@@ -1,3 +1,5 @@
+exception Serf_error of string
+
 let my_hash : (int, Msgpck.t -> unit) Hashtbl.t = (Hashtbl.create 1000)
 
 let buffer_size = 4096
@@ -44,12 +46,15 @@ let rec read_loop ?error_handler ic =
   let header = Response.Header.of_msgpack h in
   (match header.error with
     | "" ->
-      let callback = Hashtbl.find my_hash header.seq in
-      try
-        callback b
-      with e ->
-        error_handler header.seq e
-    | error ->
+      begin
+        let callback = Hashtbl.find my_hash header.seq in
+        try
+          callback b
+        with e ->
+          error_handler header.seq e
+      end
+    | error_string ->
+      let error = Serf_error error_string in
       error_handler header.seq error);
   read_loop ic
 
