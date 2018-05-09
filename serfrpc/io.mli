@@ -4,7 +4,7 @@ val handshake : seq:int -> ?version:int -> Lwt_io.output_channel -> unit Lwt.t
 
 val auth : seq:int -> auth_key:string -> Lwt_io.output_channel -> unit Lwt.t
 
-val event : seq:int -> name:string -> payload:string -> ?coalesce:bool -> Lwt_io.output_channel -> unit Lwt.t
+val event : seq:int -> name:string -> ?payload:string -> ?coalesce:bool -> Lwt_io.output_channel -> unit Lwt.t
 
 val force_leave : seq:int -> node:string -> Lwt_io.output_channel -> unit Lwt.t
 

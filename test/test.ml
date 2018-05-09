@@ -35,6 +35,8 @@ let test =
 
   let%lwt () = Serfrpc.Io.members ~seq:51 ~callback:members_cb oc in
 
+  let%lwt () = Serfrpc.Io.event ~seq:64 ~name:"my_event" ~payload:"my_payload" oc in
+
   let%lwt () = Lwt_unix.sleep 50000.0 in
 
   Lwt_io.close ic

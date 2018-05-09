@@ -9,10 +9,10 @@ let send_request ~seq ~header ?body ?callback oc =
   let callback = match callback with | Some c -> c | None -> (fun _ -> ()) in
   Hashtbl.add my_hash seq callback;
 
-  let header_size = Msgpck.Bytes.size header in
+  let header_size = Msgpck.size header in
   let body_size = match body with
     | None -> 0
-    | Some b -> Msgpck.Bytes.size b
+    | Some b -> Msgpck.size b
   in
 
   let required_buffer_size = header_size + body_size in
@@ -63,9 +63,10 @@ let auth ~seq ~auth_key oc =
   let body = Request.Auth.to_msgpack { auth_key } in
   send_request ~seq ~header ~body oc
 
-let event ~seq ~name ~payload ?coalesce oc =
+let event ~seq ~name ?payload ?coalesce oc =
   let command = Request.Command.Event in
   let header = Request.Header.to_msgpack { command; seq } in
+  let payload = payload |> default "" in
   let coalesce = coalesce |> default false in
   let body = Request.Event.to_msgpack { name; payload; coalesce } in
   send_request ~seq ~header ~body oc
