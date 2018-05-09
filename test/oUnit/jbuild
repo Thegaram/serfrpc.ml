@@ -1,18 +1,12 @@
 (jbuild_version 1)
 
 (executable
-  (
-    (name runtest)
-    (libraries (serfrpc msgpck oUnit))
-    (preprocess (pps (lwt_ppx)))
-  )
-)
+ ((name runtest)
+  (libraries (serfrpc msgpck oUnit))
+  (preprocess (pps (lwt_ppx)))))
 
 
 (alias
-  (
-    (name runtest)
-    (deps (runtest.exe))
-    (action (run ${<}))
-  )
-)
+ ((name runtest)
+  (deps (runtest.exe))
+  (action (run ${<}))))
