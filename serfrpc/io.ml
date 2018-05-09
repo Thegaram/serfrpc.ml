@@ -89,9 +89,7 @@ let members ~seq ~callback oc =
   let command = Request.Command.Members in
   let header = Request.Header.to_msgpack { command; seq } in
   let callback body =
-    try
-      body |> Response.Members.of_msgpack |> callback
-    with e -> print_endline (Printexc.to_string e);
+    body |> Response.Members.of_msgpack |> callback
   in
   send_request ~seq ~header ~callback oc
 
@@ -102,10 +100,8 @@ let members_filtered ~seq ~callback ?tags ?status ?name oc =
   let status = status |> default "" in
   let name = name |> default "" in
   let body = Request.MembersFiltered.to_msgpack { tags; status; name } in
-  let callback body =
-    try
-      body |> Response.MembersFiltered.of_msgpack |> callback
-    with e -> print_endline (Printexc.to_string e);
+  let callback body =    
+    body |> Response.MembersFiltered.of_msgpack |> callback
   in
   send_request ~seq ~header ~body ~callback oc
 
@@ -129,9 +125,7 @@ let monitor ~seq ~callback ~log_level oc =
   let header = Request.Header.to_msgpack { command; seq } in
   let body = Request.Monitor.to_msgpack { log_level } in
   let callback body =
-    try
-      body |> Response.Monitor.of_msgpack |> callback
-    with e -> print_endline (Printexc.to_string e);
+    body |> Response.Monitor.of_msgpack |> callback
   in
   send_request ~seq ~header ~body ~callback oc
 
